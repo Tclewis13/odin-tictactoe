@@ -9,13 +9,11 @@ class Game
 
   attr_accessor :type, :win, :turn, :tile_array, :red_player, :blue_player, :game_display
 
-  def initialize(t)
-    self.type = t
+  def initialize(type)
+    self.type = type
     self.win = ''
     self.turn = :red
     self.tile_array = Array.new(3) { Array.new(3) }
-
-    type == 'pvp'
 
     self.red_player = Player.new(:red, 'human')
     self.blue_player = Player.new(:blue, 'human')
@@ -100,7 +98,7 @@ class Game
   end
 
   def make_move(player, position)
-    if check_valid(player, position)
+    if check_valid(position)
       tile_array[position[0]][position[1]].color = player.color
       game_display.print_display
     else
@@ -109,7 +107,7 @@ class Game
     end
   end
 
-  def check_valid(player, position)
+  def check_valid(position)
     return false if !position[0].between?(0, 2) || !position[1].between?(0, 2)
     return false if tile_array[position[0]][position[1]].color != :white
 

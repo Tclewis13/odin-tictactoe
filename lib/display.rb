@@ -4,8 +4,8 @@ require 'pry-byebug'
 class Display
   attr_accessor :tiles
 
-  def initialize(t)
-    self.tiles = t
+  def initialize(tiles)
+    self.tiles = tiles
     print_display
   end
 

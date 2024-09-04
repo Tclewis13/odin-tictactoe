@@ -5,8 +5,8 @@ require 'pry-byebug'
 class Tile
   attr_accessor :position, :color
 
-  def initialize(p)
-    self.position = p
+  def initialize(position)
+    self.position = position
     self.color = :white
   end
 end

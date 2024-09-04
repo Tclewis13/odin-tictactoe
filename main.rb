@@ -5,4 +5,4 @@ require 'rubocop'
 require 'colorize'
 require 'pry-byebug'
 
-new_game = Game.new('pvp')
+Game.new('pvp')
