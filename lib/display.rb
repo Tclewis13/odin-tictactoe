@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'tile'
 require 'pry-byebug'
 
@@ -10,9 +12,9 @@ class Display
   end
 
   def print_display
-    for x in 0..2
+    (0..2).each do |x|
       puts ''
-      for y in 0..2
+      (0..2).each do |y|
         print '[]'.colorize(tiles[x][y].color)
       end
     end
