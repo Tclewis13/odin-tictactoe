@@ -91,9 +91,19 @@ class Game
 
   def prompt_player
     puts "#{turn} player's turn. Select row for move."
-    move_row = gets.chomp.to_i
+    move_row = gets.chomp
+    if move_row.count('a-zA-Z').positive?
+      puts 'Invalid Value! Input your move again starting with row.'
+      prompt_player
+    end
+    move_row = move_row.to_i
     puts "#{turn} player's turn. Select column for move."
-    move_column = gets.chomp.to_i
+    move_column = gets.chomp
+    if move_column.count('a-zA-Z').positive?
+      puts 'Invalid Value! Input your move again starting with row.'
+      prompt_player
+    end
+    move_column = move_column.to_i
     make_move(get_player_from_color(turn), [move_row, move_column])
   end
 
