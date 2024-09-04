@@ -16,5 +16,7 @@ class Display
         print '[]'.colorize(tiles[x][y].color)
       end
     end
+    puts ''
+    puts ''
   end
 end

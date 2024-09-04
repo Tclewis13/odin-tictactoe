@@ -48,11 +48,27 @@ class Game
     WINSTATES.each do |state|
       if tile_array[state[0][0]][state[0][1]].color == :red && tile_array[state[1][0]][state[1][1]].color == :red && tile_array[state[2][0]][state[2][1]].color == :red
         self.win = :red
+        puts ''
+        puts ''
+        puts 'Red player wins!'
       end
-      if tile_array[state[0][0]][state[0][1]].color == :blue && tile_array[state[1][0]][state[1][1]].color == :blue && tile_array[state[2][0]][state[2][1]].color == :blue
+      if tile_array[state[0][0]][state[0][1]].color == :blue && tile_array[state[1][0]][state[1][1]].color == :blue && tile_array[state[2][0]][state[2][1]].color == :blue # rubocop:disable Style/Next
         self.win = :blue
+        puts ''
+        puts ''
+        puts 'Blue player wins!'
       end
     end
+    row_zero = tile_array[0]
+    row_one = tile_array[1]
+    row_two = tile_array[2]
+
+    return unless row_zero.none? { |tile| tile.color == :white } && row_one.none? { |tile| tile.color == :white } && row_two.none? { |tile| tile.color == :white } && win == '' # rubocop:disable Layout/LineLength
+
+    self.win = :draw
+    puts ''
+    puts ''
+    puts 'Draw Game!'
   end
 
   def game_flow
@@ -63,6 +79,9 @@ class Game
     while win == ''
       prompt_player
       check_for_win
+      if turn == :red then self.turn = :blue
+      elsif turn == :blue then self.turn = :red
+      end
     end
   end
 
@@ -81,7 +100,19 @@ class Game
   end
 
   def make_move(player, position)
-    tile_array[position[0]][position[1]].color = player.color
-    game_display.print_display
+    if check_valid(player, position)
+      tile_array[position[0]][position[1]].color = player.color
+      game_display.print_display
+    else
+      puts 'Invalid Value! Input your move again starting with row.'
+      prompt_player
+    end
+  end
+
+  def check_valid(player, position)
+    return false if !position[0].between?(0, 2) || !position[1].between?(0, 2)
+    return false if tile_array[position[0]][position[1]].color != :white
+
+    true
   end
 end
